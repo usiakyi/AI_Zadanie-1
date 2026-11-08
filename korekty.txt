@@ -1,0 +1,21 @@
+Korekta 1 – Funkcja main()
+
+Pierwotny prompt:
+„Połącz wszystkie dotychczasowe funkcje w jeden kompletny program i dodaj if __name__ == "__main__": main()”.
+
+Co poprawiłem:
+Doprecyzowałem prompt, aby AI utworzyło również definicję funkcji main() i wywołało w niej wszystkie funkcje programu w odpowiedniej kolejności.
+
+Dlaczego:
+Program zgłaszał błąd NameError: name 'main' is not defined, ponieważ funkcja main() nie była zdefiniowana.
+
+Korekta 2 – Testowanie walidacji danych
+
+Pierwotny prompt:
+„Przetestuj poprawne dane, powtarzające się nazwy, wartości ujemne, NaN, nieskończoność oraz nieprawidłowy wymiar macierzy”.
+
+Co poprawiłem:
+Doprecyzowałem prompt, aby dodać osobny test wartości np.inf w funkcji test_walidacji().
+
+Dlaczego:
+W pierwotnej implementacji brakowało testu sprawdzającego wartości nieskończone, mimo że walidacja powinna je odrzucać.

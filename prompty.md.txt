@@ -1,0 +1,129 @@
+Prompt 1 – Zmiana struktury danych na NumPy
+
+Przebuduj sposób przechowywania danych postaci RPG. Zamiast listy słowników zastosuj tablice NumPy.
+Wymagania:
+Nazwy postaci przechowuj w tablicy NAZWY.
+Statystyki przechowuj w dwuwymiarowej tablicy STATYSTYKI.
+Zachowaj dane wszystkich ośmiu postaci.
+Kolejność kolumn: HP, atak, obrona, szybkość.
+Ustaw typ danych statystyk na float.
+Utwórz osobną tablicę wag WAGI o wartościach [0.20, 0.40, 0.25, 0.15].
+Utwórz krotkę KOLUMNY z nazwami statystyk.
+Na tym etapie nie zmieniaj jeszcze sposobu obliczania siły.
+Kryterium weryfikacji: tablica statystyk powinna mieć wymiary 8 × 4, a nazwy postaci muszą odpowiadać kolejności wierszy.
+Prompt 2 – Walidacja danych wejściowych
+Dodaj funkcję waliduj(nazwy, dane), która będzie sprawdzać poprawność danych przed rozpoczęciem analizy.
+Wymagania:
+Dane statystyczne muszą być tablicą dwuwymiarową.
+Macierz musi mieć dokładnie cztery kolumny i tyle wierszy, ile jest nazw postaci.
+Muszą istnieć co najmniej dwie postacie.
+Nazwy postaci muszą być unikatowe.
+Wszystkie statystyki muszą być nieujemnymi i skończonymi liczbami.
+W przypadku nieprawidłowych danych zgłaszaj wyjątek ValueError z czytelnym komunikatem.
+Do sprawdzania wartości wykorzystaj funkcje NumPy.
+Kryterium weryfikacji: przetestuj poprawne dane, powtarzające się nazwy, wartości ujemne, NaN, nieskończoność oraz nieprawidłowy wymiar macierzy.
+Prompt 3 – Normalizacja i obliczanie siły
+Zmień sposób obliczania siły postaci. Zastosuj normalizację Min-Max oraz system wag.
+Wymagania:
+Utwórz funkcję normalizuj(dane).
+Normalizuj każdą kolumnę osobno do zakresu 0–1.
+Wykorzystaj np.min i np.ptp z odpowiednią osią.
+Jeżeli wszystkie wartości w kolumnie są identyczne, zwróć w tej kolumnie same zera.
+Zabezpiecz dzielenie przez zero przy użyciu np.divide, out i where.
+Utwórz funkcję oblicz_sile(dane).
+Obliczsiłę za pomocą mnożenia macierzowego znormalizowanych danych przez tablicę wag [0.20, 0.40, 0.25, 0.15].
+Nie stosuj pętli Python do indywidualnego obliczania siły każdej postaci.
+Kryterium weryfikacji: wartości po normalizacji muszą należeć do przedziału 0–1. Sprawdź również działanie funkcji dla kolumny zawierającej jednakowe wartości.
+Prompt 4 – Automatyczne przypisywanie ról
+Dodaj funkcję okresl_role(dane), która będzie automatycznie przypisywać postaciom role.
+Wymagania:
+Rola Szturmowiec: atak co najmniej 35 i szybkość co najmniej 12.
+Rola Obrońca: HP co najmniej 120 i obrona co najmniej 18.
+Rola Wszechstronny: wszystkie pozostałe postacie.
+Jeżeli postać spełnia jednocześnie dwa warunki, pierwszeństwo ma Szturmowiec.
+Wykorzystaj operacje wektorowe NumPy, np. maski logiczne i np.select.
+Funkcja powinna zwracać tablicę ról w kolejności odpowiadającej tablicy nazw postaci.
+Kryterium weryfikacji: sprawdź poprawność przypisania wszystkich trzech ról oraz pierwszeństwo warunku ofensywnego.
+Prompt 5 – Ranking i macierz pojedynków
+Rozbuduj program o ranking postaci oraz symulację pojedynków.
+Wymagania:
+Sortuj postacie malejąco według obliczonej siły.
+Wykorzystaj np.argsort.
+Zastosuj stabilny algorytm sortowania, aby przy identycznych wynikach zachować pierwotną kolejność postaci.
+Dodaj funkcję macierz_pojedynkow(sila).
+Oblicz różnice siły wszystkich możliwych par za pomocą rozszerzania wymiarów tablic NumPy.
+Prawdopodobieństwo zwycięstwa oblicz za pomocą funkcji logistycznej z parametrem 8.
+Na przekątnej macierzy ustaw wartość 0.5.
+Kryterium weryfikacji:
+Macierz musi mieć wymiary N × N.
+Wszystkie wartości muszą należeć do przedziału 0–1.
+Przekątna musi zawierać wyłącznie wartości 0.5.
+Suma prawdopodobieństw dla przeciwnych kierunków pojedynku musi wynosić 1.
+Prompt 6 – Średnie szanse wygranej
+Dodaj obliczanie średnich szans wygranej każdej postaci.
+Wymagania
+Oblicz średnią z prawdopodobieństw pojedynków danej postaci z pozostałymi postaciami.
+Nie uwzględniaj pojedynku postaci z samą sobą.
+Wykorzystaj operacje tablicowe NumPy zamiast ręcznego sumowania w pętli.
+Wyniki przechowuj w osobnej tablicy.
+Średnie prawdopodobieństwa powinny należeć do zakresu 0–1.
+Kryterium weryfikacji: sprawdź, czy średnia jest obliczana dla wszystkich przeciwników z pominięciem elementu na przekątnej macierzy.
+Prompt 7 – Filtrowanie postaci według warunków
+Dodaj sekcję filtrowania postaci spełniających określone wymagania.
+Wymagania:
+Wykorzystaj tablice STATYSTYKI, NAZWY oraz obliczoną tablicę sila.
+Utwórz maskę logiczną sprawdzającą jednocześnie trzy warunki:
+HP co najmniej 100;
+szybkość conajmniej 10;
+siła co najmniej 0.45.
+Połącz warunki za pomocą operatora &.
+Wykorzystaj maskę do wybrania nazw postaci z tablicy NAZWY.
+Wyświetl nagłówek POSTACIE SPEŁNIAJĄCE WYMAGANIA.
+Jeśli żadna postać nie spełnia warunków, wyświetl komunikat Brak.
+Do filtrowania wykorzystaj indeksowanie logiczne NumPy.
+Kryterium weryfikacji: postać musi spełniać wszystkie trzy warunki jednocześnie, aby znaleźć się w wyniku.
+Prompt 8 – Statystyki całej grupy
+Dodaj sekcję prezentującą statystyki całej grupy postaci.
+Wymagania:
+Wykorzystaj macierz STATYSTYKI i krotkę KOLUMNY.
+Dla każdej statystyki oblicz:
+wartość minimalną za pomocą np.min;
+średnią za pomocą np.mean;
+wartość maksymalną za pomocą np.max.
+Wykorzystaj pętlę przechodzącą po indeksach kolumn.
+Wyświetl nazwę statystyki oraz trzy obliczone wartości.
+Wartości liczbowe formatuj do jednego miejsca po przecinku.
+Nazwy statystyk wyrównaj do szerokości 10 znaków.
+Kryterium weryfikacji: program powinien wyświetlić minimum, średnią i maksimum dla wszystkich czterech statystyk.
+Prompt 9 – Eksport CSV, testy i integracja programu
+Połącz wszystkie dotychczasowe funkcje w jeden kompletny program.
+Wymagania:
+Zachowaj funkcję zapisz_csv(sciezka, nazwy, role, sila, srednie_szanse, ranking).
+Użyj biblioteki csv.
+Zapisuj plik w kodowaniu utf-8-sig.
+Zastosuj separator średnikowy ;.
+Nagłówek CSV powinien zawierać:
+Miejsce
+Postać
+Rola
+Siła
+Średnia szansa wygranej
+Numeruj miejsca od 1.
+Siłę zapisuj z dokładnością do czterech miejsc po przecinku.
+Średnią szansę wygranej zapisuj w formacie procentowym z dwoma miejscami po przecinku.
+Dodaj funkcję testy(), która sprawdzi normalizację, obsługę stałych kolumn oraz macierz pojedynków.
+W funkcji main() zachowaj następującą kolejność:
+walidacja danych;
+uruchoienie testów;
+obliczanie siły;
+określanie ról;
+tworzenie rankingu;
+obliczani macierzy pojedynków;
+obliczanie średnich szans wygranej;
+wyświetlanie rankingu;
+filtrowanie postaci;
+wyświetlanie statystyk grupy;
+zapis pliku CSV.
+Dodaj konstrukcję if __name__ == "__main__": main().
+Nie usuwaj wcześniej utworzonych funkcji ani zabezpieczeń.
+Kryterium weryfikacji: program musi uruchamiać się samodzielnie, wyświetlać wszystkie trzy sekcje raportu oraz tworzyć plik raport_postaci.csv zawierający osiem rekordów.
